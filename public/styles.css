@@ -1,0 +1,431 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.logo h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #4c51bf;
+    margin-bottom: 5px;
+}
+
+.logo p {
+    color: #6b7280;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.status-indicators {
+    display: flex;
+    gap: 20px;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.status-dot.online {
+    background: #10b981;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+
+.status-dot.offline {
+    background: #ef4444;
+}
+
+.status-dot.connecting {
+    background: #f59e0b;
+    animation: pulse 1.5s infinite;
+}
+
+/* Main content */
+.main-content {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.voice-interface {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Audio visualizer */
+.audio-visualizer {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.audio-visualizer.active {
+    transform: scale(1.1);
+    box-shadow: 0 0 40px rgba(102, 126, 234, 0.5);
+}
+
+.wave-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.wave {
+    width: 4px;
+    height: 20px;
+    background: white;
+    border-radius: 2px;
+    animation: wave 1.5s ease-in-out infinite;
+}
+
+.wave:nth-child(2) { animation-delay: 0.1s; }
+.wave:nth-child(3) { animation-delay: 0.2s; }
+.wave:nth-child(4) { animation-delay: 0.3s; }
+.wave:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes wave {
+    0%, 100% { height: 20px; }
+    50% { height: 60px; }
+}
+
+.audio-visualizer:not(.active) .wave {
+    animation: none;
+    height: 20px;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.control-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    min-width: 160px;
+    justify-content: center;
+}
+
+.control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.control-btn.primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+.control-btn.primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.control-btn.secondary {
+    background: #ef4444;
+    color: white;
+}
+
+.control-btn.secondary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+}
+
+.control-btn:not(.primary):not(.secondary) {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.control-btn:not(.primary):not(.secondary):hover:not(:disabled) {
+    background: #e5e7eb;
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+/* Conversation status */
+.conversation-status {
+    text-align: center;
+    color: #6b7280;
+    font-size: 1.1rem;
+    max-width: 300px;
+}
+
+/* Conversation panel */
+.conversation-panel {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.panel-header h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.clear-btn {
+    background: none;
+    border: 1px solid #d1d5db;
+    color: #6b7280;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.clear-btn:hover {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+}
+
+.conversation-history {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 500px;
+    padding-right: 10px;
+}
+
+.conversation-history::-webkit-scrollbar {
+    width: 6px;
+}
+
+.conversation-history::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+}
+
+.conversation-history::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.conversation-history::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Messages */
+.message {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+}
+
+.message.user {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    margin-left: 20px;
+}
+
+.message.assistant {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    margin-right: 20px;
+}
+
+.message.system {
+    background: #fef3c7;
+    border: 1px solid #f59e0b;
+    text-align: center;
+}
+
+.message-content {
+    margin-bottom: 8px;
+}
+
+.message-content p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.message-time {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    text-align: right;
+}
+
+.message.system .message-time {
+    text-align: center;
+}
+
+/* Footer */
+.footer {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tech-info {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.version {
+    color: #9ca3af;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.loading {
+    animation: pulse 1.5s infinite;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .main-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .status-indicators {
+        justify-content: center;
+    }
+    
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .control-btn {
+        width: 100%;
+        max-width: 250px;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .tech-info {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .header, .voice-interface, .conversation-panel, .footer {
+        padding: 20px;
+    }
+    
+    .logo h1 {
+        font-size: 2rem;
+    }
+    
+    .audio-visualizer {
+        width: 150px;
+        height: 150px;
+    }
+}
